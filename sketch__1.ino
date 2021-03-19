@@ -192,8 +192,8 @@ void setSpeed(int k) {
     analogWrite(PWM_MOTOR_1, (abs(128 - k) / 127)*speed );
     analogWrite(PWM_MOTOR_2, (abs(128 - k) / 127)*speed );
   } else {
-    analogWrite(PWM_MOTOR_1, 255);
-    analogWrite(PWM_MOTOR_2, 255);
+    analogWrite(PWM_MOTOR_1, speed);
+    analogWrite(PWM_MOTOR_2, speed);
   }
 }
 //ham chay thang
@@ -202,10 +202,9 @@ void REV(int k) {
   digitalWrite(MOTORA_2, LOW);
   digitalWrite(MOTORB_3, LOW);
   digitalWrite(MOTORB_4, HIGH);
-  analogWrite(PWM_MOTOR_1, 255);
-  analogWrite(PWM_MOTOR_2, 255);
+  setSpeed(k);
 
-  Serial.println("Turn right");
+  Serial.println("Turn REV");
 }
 
 //ham chay lui
@@ -216,7 +215,7 @@ void forward(int k) {
   digitalWrite(MOTORB_4, LOW);
   setSpeed(k);
 
-  Serial.println("Turn left");
+  Serial.println("Turn forward");
 }
 
 //ham re trai
@@ -227,7 +226,7 @@ void left(int k) {
   digitalWrite(MOTORB_4, HIGH);
   setSpeed(k);
 
-  Serial.println("Move back");
+  Serial.println("Move left");
 }
 
 //ham re phai
@@ -238,7 +237,7 @@ void right(int k) {
   digitalWrite(MOTORB_4, LOW);
   setSpeed(k);
 
-  Serial.println("Move forward");
+  Serial.println("Move right");
 }
 
 //ham dung
