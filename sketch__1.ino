@@ -107,7 +107,7 @@ void loop() {
     {
       LY = ps2x.Analog(PSS_LY);                     //receive values from p22 joystick
       LX = ps2x.Analog(PSS_LX);
-    
+
       RY = ps2x.Analog(PSS_RY);
       RX = ps2x.Analog(PSS_RX);
     }
@@ -127,38 +127,44 @@ void loop() {
     if (ps2x.Button(PSB_PAD_DOWN)) forward(128);
 
     //Tang toc
-    if(ps2x.Button(PSB_GREEN)) resetSpeed(true);
+    if (ps2x.Button(PSB_GREEN)) resetSpeed(true);
 
     //Giam toc
-    if(ps2x.Button(PSB_BLUE)) resetSpeed(false);
-    
+    if (ps2x.Button(PSB_BLUE)) resetSpeed(false);
+
+    //set ve muc 1
+    if (ps2x.Button(PSB_PINK)) speed = 135;
+
+    //set ve muc 5
+    if (ps2x.Button(PSB_RED)) speed = 255;
+
     //Stop
     if (ps2x.Button(PSB_PAD_UP) == LOW && ps2x.Button(PSB_PAD_DOWN) == LOW && ps2x.Button(PSB_PAD_RIGHT) == LOW && ps2x.Button(PSB_PAD_LEFT) == LOW) stop();
 
     //LX, LY, RX, RY
-    
+
     //di thang
     if (LY > 128 || RY > 128)                       //check if the joystick pushed up side
     {
-      REV((LY>128)?LY:RY);
+      REV((LY > 128) ? LY : RY);
     }
-    
+
     //di lui
     if (LY < 128 || RY < 128)
     {
-      forward((LY<128)?LY:RY);
+      forward((LY < 128) ? LY : RY);
     }
 
     //re trai
     if (LX < 128 || RX < 128)
     {
-      left((LX<128)?LX:RX);
+      left((LX < 128) ? LX : RX);
     }
 
     //re phai
     if (LX > 128 || RX > 128)
     {
-      right((LX>128)?LX:RX);
+      right((LX > 128) ? LX : RX);
     }
 
     //dung
@@ -173,22 +179,24 @@ void loop() {
 
 }
 
-void resetSpeed(bool k){
-  if((speed>=135) && (speed<=255)){
-    if(k) speed+=30;
-    else speed-=30;
+void resetSpeed(bool k) {
+  if ((speed >= 135) && (speed <= 255)) {
+    if (k) speed += 30;
+    else speed -= 30;
   }
 }
 
-void setSpeed(int k){
-  if(k!=128){
-    analogWrite(PWM_MOTOR_1, (abs(128-k)/127)*speed );
-    analogWrite(PWM_MOTOR_2, (abs(128-k)/127)*speed );
-  }else{
+//ham set toc do dong co theo do nhan, va theo nut nhan
+void setSpeed(int k) {
+  if (k != 128) {
+    analogWrite(PWM_MOTOR_1, (abs(128 - k) / 127)*speed );
+    analogWrite(PWM_MOTOR_2, (abs(128 - k) / 127)*speed );
+  } else {
     analogWrite(PWM_MOTOR_1, 255);
     analogWrite(PWM_MOTOR_2, 255);
   }
 }
+//ham chay thang
 void REV(int k) {
   digitalWrite(MOTORA_1, HIGH);
   digitalWrite(MOTORA_2, LOW);
@@ -199,6 +207,8 @@ void REV(int k) {
 
   Serial.println("Turn right");
 }
+
+//ham chay lui
 void forward(int k) {
   digitalWrite(MOTORA_1, LOW);
   digitalWrite(MOTORA_2, HIGH);
@@ -208,6 +218,8 @@ void forward(int k) {
 
   Serial.println("Turn left");
 }
+
+//ham re trai
 void left(int k) {
   digitalWrite(MOTORA_1, LOW);
   digitalWrite(MOTORA_2, HIGH);
@@ -217,6 +229,8 @@ void left(int k) {
 
   Serial.println("Move back");
 }
+
+//ham re phai
 void right(int k) {
   digitalWrite(MOTORA_1, HIGH);
   digitalWrite(MOTORA_2, LOW);
@@ -226,6 +240,8 @@ void right(int k) {
 
   Serial.println("Move forward");
 }
+
+//ham dung
 void stop() {
   digitalWrite(MOTORA_1, LOW);
   digitalWrite(MOTORA_2, LOW);
