@@ -110,6 +110,39 @@ void loop() {
 
       RY = ps2x.Analog(PSS_RY);
       RX = ps2x.Analog(PSS_RX);
+      //LX, LY, RX, RY
+
+      //di thang
+      if (LY > 128 || RY > 128)                       //check if the joystick pushed up side
+      {
+        REV((LY > 128) ? LY : RY);
+      }
+
+      //di lui
+      if (LY < 128 || RY < 128)
+      {
+        forward((LY < 128) ? LY : RY);
+      }
+
+      //re trai
+      if (LX < 128 || RX < 128)
+      {
+        left((LX < 128) ? LX : RX);
+      }
+
+      //re phai
+      if (LX > 128 || RX > 128)
+      {
+        right((LX > 128) ? LX : RX);
+      }
+
+      //dung
+      if (LX == 128 && LY == 128 && RX == 128 && RY == 128)
+      {
+        stop();
+      }
+      LY = LX = 128;         //return to default vlaues
+      RY = RX = 128;         //return to default values
     }
 
     // Perform movements based on D-pad buttons
@@ -141,39 +174,7 @@ void loop() {
     //Stop
     if (ps2x.Button(PSB_PAD_UP) == LOW && ps2x.Button(PSB_PAD_DOWN) == LOW && ps2x.Button(PSB_PAD_RIGHT) == LOW && ps2x.Button(PSB_PAD_LEFT) == LOW) stop();
 
-    //LX, LY, RX, RY
 
-    //di thang
-    if (LY > 128 || RY > 128)                       //check if the joystick pushed up side
-    {
-      REV((LY > 128) ? LY : RY);
-    }
-
-    //di lui
-    if (LY < 128 || RY < 128)
-    {
-      forward((LY < 128) ? LY : RY);
-    }
-
-    //re trai
-    if (LX < 128 || RX < 128)
-    {
-      left((LX < 128) ? LX : RX);
-    }
-
-    //re phai
-    if (LX > 128 || RX > 128)
-    {
-      right((LX > 128) ? LX : RX);
-    }
-
-    //dung
-    if (LX == 128 && LY == 128 && RX == 128 && RY == 128)
-    {
-      stop();
-    }
-    LY = LX = 128;         //return to default vlaues
-    RY = RX = 128;         //return to default values
 
   }
 
