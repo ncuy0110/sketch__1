@@ -135,7 +135,17 @@ void loop() {
       {
         right((LX > 128) ? LX : RX);
       }
+      //Tang toc
+      if (ps2x.Button(PSB_GREEN)) if (speed < 255) speed = speed + 30;
 
+      //Giam toc
+      if (ps2x.Button(PSB_BLUE)) if (speed > 135) speed = speed - 30;
+
+      //set ve muc 1
+      if (ps2x.Button(PSB_PINK)) speed = 135;
+
+      //set ve muc 5
+      if (ps2x.Button(PSB_RED)) speed = 255;
       //dung
       if (LX == 128 && LY == 128 && RX == 128 && RY == 128)
       {
@@ -143,36 +153,39 @@ void loop() {
       }
       LY = LX = 128;         //return to default vlaues
       RY = RX = 128;         //return to default values
+    } else {
+      // Perform movements based on D-pad buttons
+
+      // re phai
+      if (ps2x.Button(PSB_PAD_RIGHT)) right(128);
+
+      // re trai
+      if (ps2x.Button(PSB_PAD_LEFT)) left(128);
+
+      // chay thang
+      if (ps2x.Button(PSB_PAD_UP)) REV(128);
+      if (ps2x.Button(PSB_PAD_UP)) REV(128);
+
+      // chay lui
+      if (ps2x.Button(PSB_PAD_DOWN)) forward(128);
+
+      //Tang toc
+      if (ps2x.Button(PSB_GREEN)) if (speed < 255) speed = speed + 30;
+
+      //Giam toc
+      if (ps2x.Button(PSB_BLUE)) if (speed > 135) speed = speed - 30;
+
+      //set ve muc 1
+      if (ps2x.Button(PSB_PINK)) speed = 135;
+
+      //set ve muc 5
+      if (ps2x.Button(PSB_RED)) speed = 255;
+
+      //Stop
+      if (ps2x.Button(PSB_PAD_UP) == LOW && ps2x.Button(PSB_PAD_DOWN) == LOW && ps2x.Button(PSB_PAD_RIGHT) == LOW && ps2x.Button(PSB_PAD_LEFT) == LOW) stop();
     }
 
-    // Perform movements based on D-pad buttons
 
-    // re phai
-    if (ps2x.Button(PSB_PAD_RIGHT)) right(128);
-
-    // re trai
-    if (ps2x.Button(PSB_PAD_LEFT)) left(128);
-
-    // chay thang
-    if (ps2x.Button(PSB_PAD_UP)) REV(128);
-
-    // chay lui
-    if (ps2x.Button(PSB_PAD_DOWN)) forward(128);
-
-    //Tang toc
-    if (ps2x.Button(PSB_GREEN)) if(speed<255) speed=speed+30; 
-
-    //Giam toc
-    if (ps2x.Button(PSB_BLUE)) if(speed>135) speed=speed-30; 
-
-    //set ve muc 1
-    if (ps2x.Button(PSB_PINK)) speed = 135;
-
-    //set ve muc 5
-    if (ps2x.Button(PSB_RED)) speed = 255;
-
-    //Stop
-    if (ps2x.Button(PSB_PAD_UP) == LOW && ps2x.Button(PSB_PAD_DOWN) == LOW && ps2x.Button(PSB_PAD_RIGHT) == LOW && ps2x.Button(PSB_PAD_LEFT) == LOW) stop();
 
 
 
@@ -180,12 +193,6 @@ void loop() {
 
 }
 
-void resetSpeed(bool k) {
-  if ((speed >= 135) && (speed <= 255)) {
-    if (k) speed += 30;
-    else speed -= 30;
-  }
-}
 
 //ham set toc do dong co theo do nhan, va theo nut nhan
 void setSpeed(int k) {
