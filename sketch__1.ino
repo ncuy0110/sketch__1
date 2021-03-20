@@ -160,10 +160,10 @@ void loop() {
     if (ps2x.Button(PSB_PAD_DOWN)) forward(128);
 
     //Tang toc
-    if (ps2x.Button(PSB_GREEN)) resetSpeed(true);
+    if (ps2x.Button(PSB_GREEN)) if(speed<=255) speed=speed+30; 
 
     //Giam toc
-    if (ps2x.Button(PSB_BLUE)) resetSpeed(false);
+    if (ps2x.Button(PSB_BLUE)) if(speed>=135) speed=speed-30; 
 
     //set ve muc 1
     if (ps2x.Button(PSB_PINK)) speed = 135;
