@@ -231,8 +231,8 @@ void left(int k) {
   digitalWrite(MOTORA_2, HIGH);
   digitalWrite(MOTORB_3, LOW);
   digitalWrite(MOTORB_4, HIGH);
-  analogWrite(PWM_MOTOR_1, 135);
-  analogWrite(PWM_MOTOR_2, 135);
+  analogWrite(PWM_MOTOR_1, 120);
+  analogWrite(PWM_MOTOR_2, 120);
 
   Serial.println("Move left");
 }
@@ -243,8 +243,8 @@ void right(int k) {
   digitalWrite(MOTORA_2, LOW);
   digitalWrite(MOTORB_3, HIGH);
   digitalWrite(MOTORB_4, LOW);
-  analogWrite(PWM_MOTOR_1, 135);
-  analogWrite(PWM_MOTOR_2, 135);
+  analogWrite(PWM_MOTOR_1, 120);
+  analogWrite(PWM_MOTOR_2, 120);
 
   Serial.println("Move right");
 }
