@@ -113,27 +113,27 @@ void loop() {
       //LX, LY, RX, RY
 
       //di thang
-      if (LY > 128 || RY > 128)                       //check if the joystick pushed up side
+      if (LY > 200 || RY > 200)                       //check if the joystick pushed up side
       {
-        REV((LY > 128) ? LY : RY);
+        forward((LY > 200) ? LY : RY);
       }
 
       //di lui
-      if (LY < 128 || RY < 128)
+      if (LY < 100 || RY < 100)
       {
-        forward((LY < 128) ? LY : RY);
+        REV((LY < 100) ? LY : RY);
       }
 
       //re trai
-      if (LX < 128 || RX < 128)
+      if (LX < 100 || RX < 100)
       {
-        left((LX < 128) ? LX : RX);
+        left((LX < 100) ? LX : RX);
       }
 
       //re phai
-      if (LX > 128 || RX > 128)
+      if (LX > 200 || RX > 200)
       {
-        right((LX > 128) ? LX : RX);
+        right((LX > 200) ? LX : RX);
       }
       //Tang toc
       if (ps2x.Button(PSB_GREEN)) if (speed < 255) speed = speed + 30;
@@ -163,7 +163,6 @@ void loop() {
       if (ps2x.Button(PSB_PAD_LEFT)) left(128);
 
       // chay thang
-      if (ps2x.Button(PSB_PAD_UP)) REV(128);
       if (ps2x.Button(PSB_PAD_UP)) REV(128);
 
       // chay lui
@@ -205,7 +204,7 @@ void setSpeed(int k) {
   }
 }
 //ham chay thang
-void REV(int k) {
+void forward(int k) {
   digitalWrite(MOTORA_1, HIGH);
   digitalWrite(MOTORA_2, LOW);
   digitalWrite(MOTORB_3, LOW);
@@ -216,7 +215,7 @@ void REV(int k) {
 }
 
 //ham chay lui
-void forward(int k) {
+void REV(int k) {
   digitalWrite(MOTORA_1, LOW);
   digitalWrite(MOTORA_2, HIGH);
   digitalWrite(MOTORB_3, HIGH);
@@ -232,7 +231,8 @@ void left(int k) {
   digitalWrite(MOTORA_2, HIGH);
   digitalWrite(MOTORB_3, LOW);
   digitalWrite(MOTORB_4, HIGH);
-  setSpeed(k);
+  analogWrite(PWM_MOTOR_1, 135);
+  analogWrite(PWM_MOTOR_2, 135);
 
   Serial.println("Move left");
 }
@@ -243,7 +243,8 @@ void right(int k) {
   digitalWrite(MOTORA_2, LOW);
   digitalWrite(MOTORB_3, HIGH);
   digitalWrite(MOTORB_4, LOW);
-  setSpeed(k);
+  analogWrite(PWM_MOTOR_1, 135);
+  analogWrite(PWM_MOTOR_2, 135);
 
   Serial.println("Move right");
 }
